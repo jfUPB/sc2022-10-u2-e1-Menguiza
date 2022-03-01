@@ -14,6 +14,8 @@ struct array
     int size;
 };
 
+int sscanf(const char *str, const char *format, ...);
+
 void initArray(struct array *);
 void getArray(struct array *);
 void arrayCommon(struct array *, struct array *, struct array *);
@@ -36,29 +38,24 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
-    int sscanf(const char *str, const char *format, ...);
     char number[64];
     int valor;
+    int result;
+    int primerValor=0;
+    int contador=0;
 
-    if(fgets(number, sizeof(number), stdin) !=NULL)
+    while(fgets(number, sizeof(number), stdin) !=NULL)
     {
-        int result = sscanf(number, "%d", &valor);
-        
-        if(result == 1)
+        result = sscanf(number, "%d", &valor);
+
+        if(result==1 && primerValor == 0)
         {
-            parr->size = valor;
-
-            for(int i = 0; i < sizeof(parr); i++)
-            {
-                result = 0;
-                memset(number, 0, sizeof(number));
-
-                if(fgets(number, sizeof(number), stdin) !=NULL)
-                {
-                    sscanf(number, "%d", &valor);
-                    parr->pdata[i] = valor;
-                }
-            }
+            parr->size=valor;
+        }
+        else if(result && primerValor != 0)
+        {
+            parr->pdata[contador]=valor;
+            contador++;
         }
     }
 }
