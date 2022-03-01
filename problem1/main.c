@@ -47,6 +47,18 @@ void getArray(struct array *parr)
         if(result == 1)
         {
             parr->size = valor;
+
+            for(int i = 0; i < sizeof(parr); i++)
+            {
+                result = 0;
+                memset(number, 0, sizeof(number));
+
+                if(fgets(number, sizeof(number), stdin) !=NULL)
+                {
+                    sscanf(number, "%d", &valor);
+                    parr->pdata[i] = valor;
+                }
+            }
         }
     }
 }
