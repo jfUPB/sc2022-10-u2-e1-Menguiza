@@ -36,7 +36,13 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
-    
+    int n = get_int("Tamaño del arreglo: ");
+    parr->size = n;
+
+    for(int i = 0; i < n; i++)
+    {
+        parr->pdata[i]=get_int("Valor #" + i + " del arreglo: ");
+    }
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
