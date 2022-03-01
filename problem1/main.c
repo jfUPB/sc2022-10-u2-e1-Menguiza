@@ -36,12 +36,18 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
-    int n = get_int("Tamaño del arreglo: ");
-    parr->size = n;
+    int sscanf(const char *str, const char *format, ...);
+    char number[64];
+    int valor;
 
-    for(int i = 0; i < n; i++)
+    if(fgets(number, sizeof(number), stdin) !=NULL)
     {
-        parr->pdata[i]=get_int("Valor #" + i + " del arreglo: ");
+        int result = sscanf(number, "%d", &valor);
+        
+        if(result == 1)
+        {
+            parr->size = valor;
+        }
     }
 }
 
