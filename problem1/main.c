@@ -46,7 +46,7 @@ void getArray(struct array *parr)
         if(sscanf(number, "%d", &valor) == 1)
         {
             parr->size = valor;
-            parr->pdata = malloc(parr->size);
+            parr->pdata = malloc(parr->size * sizeof(int));
 
             for(int i = 0; i < parr->size; i++)
             {
