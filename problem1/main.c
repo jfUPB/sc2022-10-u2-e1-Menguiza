@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #ifdef DOLOG
 #define LOG(...) fprintf(log, __VA_ARGS__);
@@ -21,8 +20,7 @@ void arrayCommon(struct array *, struct array *, struct array *);
 void printArray(struct array *);
 void freeMemory(struct array *, struct array *, struct array *);
 
-void initArray(struct array *arr)
-{
+void initArray(struct array *arr){
     arr->pdata = NULL;
     arr->size = -1;
 }
@@ -38,16 +36,13 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
-    char inputCharArray[64];
-    bool firstData = false;
     int valor;
-    int contador = 0;
 
     scanf("%d", &valor);
 
     parr->size = valor;
 
-    for(int i = 0; i < sizeof(parr); i++)
+    for(int i = 0; i < parr->size; i++)
     {
         scanf("%d", &parr->pdata[i]);
     }
