@@ -67,6 +67,7 @@ void getArray(struct array *parr)
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
     int size=0, i, j, valor1, valor2, contador = 0;
+    int valores[20] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
     arrOut->size=0;
 
@@ -79,26 +80,32 @@ void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOu
 
             if( valor1 == valor2)
             {
-                arrOut->size++;
+                int condicional= 0;
+
+                for(int h=0; h<20; h++)
+                {
+                    if(valor1 == valores[h])
+                    {
+                        h=20;
+                        condicional =-1;
+                    }
+                }
+
+                if(condicional==0)
+                {
+                    arrOut->size++;
+                    valores[contador]=valor1;
+                    contador++;
+                }
             }
         }
     }
 
     arrOut->pdata = malloc(arrOut->size * sizeof(int));
 
-    for(i = 0; i<arrIn1->size; i++)
+    for(i = 0; i<arrOut->size; i++)
     {
-        for(j = 0; j<arrIn2->size; j++)
-        {
-            valor1 = *(arrIn1->pdata+i);
-            valor2 = *(arrIn2->pdata+j);
-
-            if( valor1 == valor2)                
-            {
-                *(arrOut->pdata+contador) = valor1;
-                contador++;
-            }
-        }
+        *(arrOut->pdata+i)=valores[i];
     }
 }
 
