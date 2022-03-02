@@ -36,15 +36,31 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
+    char number[64];
     int valor;
 
-    scanf("%d", &valor);
-
-    parr->size = valor;
-
-    for(int i = 0; i < parr->size; i++)
+    if(fgets(number, sizeof(number), stdin) != NULL)
     {
-        scanf("%d", &parr->pdata[i]);
+        number[strlen(number) - 1] = 0;
+
+        if(sscanf(number, "%d", &valor) == 1)
+        {
+            parr->size = valor;
+            parr->pdata = malloc(parr->size);
+
+            for(int i = 0; i < parr->size; i++)
+            {
+                if(fgets(number, sizeof(number), stdin) != NULL)
+                {
+                    number[strlen(number) - 1] = 0;
+
+                    if(sscanf(number, "%d", &valor) == 1)
+                    {
+                        *(parr->pdata+i)=valor;
+                    }
+                }
+            }
+        }
     }
 }
 
