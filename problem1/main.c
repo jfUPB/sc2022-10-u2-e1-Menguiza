@@ -36,12 +36,77 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
-    
+    char number[64];
+    int valor;
+
+    if(fgets(number, sizeof(number), stdin) != NULL)
+    {
+        number[strlen(number) - 1] = 0;
+
+        if(sscanf(number, "%d", &valor) == 1)
+        {
+            parr->size = valor;
+            parr->pdata = malloc(parr->size * sizeof(int));
+
+            for(int i = 0; i < parr->size; i++)
+            {
+                if(fgets(number, sizeof(number), stdin) != NULL)
+                {
+                    number[strlen(number) - 1] = 0;
+
+                    if(sscanf(number, "%d", &valor) == 1)
+                    {
+                        *(parr->pdata+i)=valor;
+                    }
+                }
+            }
+        }
+    }
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
-    
+    int size=0, i, j, valor1, valor2, contador = 0;
+    int valores[20] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+
+    arrOut->size=0;
+
+    for(i = 0; i<arrIn1->size; i++)
+    {
+        for(j = 0; j<arrIn2->size; j++)
+        {
+            valor1 = *(arrIn1->pdata+i);
+            valor2 = *(arrIn2->pdata+j);
+
+            if( valor1 == valor2)
+            {
+                int condicional= 0;
+
+                for(int h=0; h<20; h++)
+                {
+                    if(valor1 == valores[h])
+                    {
+                        h=20;
+                        condicional =-1;
+                    }
+                }
+
+                if(condicional==0)
+                {
+                    arrOut->size++;
+                    valores[contador]=valor1;
+                    contador++;
+                }
+            }
+        }
+    }
+
+    arrOut->pdata = malloc(arrOut->size * sizeof(int));
+
+    for(i = 0; i<arrOut->size; i++)
+    {
+        *(arrOut->pdata+i)=valores[i];
+    }
 }
 
 void freeMemory(struct array *arr1, struct array *arr2, struct array *arr3)
